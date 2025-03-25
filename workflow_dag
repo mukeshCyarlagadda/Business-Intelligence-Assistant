@@ -1,0 +1,22 @@
+// SQL Agent Workflow
+digraph workflow_dag {
+	node [fillcolor="#E6E6FA" fontname=Arial rounded=true shape=box style=filled]
+	__start__ [label=__start__ shape=oval]
+	process_question [label=process_question]
+	generate_sql [label=generate_sql]
+	convert_dataframe [label=convert_dataframe]
+	conditional_router [label=conditional_router]
+	generate_chart_instructions [label=generate_chart_instructions]
+	execute_chart_code [label=execute_chart_code]
+	state_printer [label=state_printer]
+	__end__ [label=__end__ shape=oval]
+	__start__ -> process_question
+	process_question -> generate_sql
+	generate_sql -> convert_dataframe
+	convert_dataframe -> conditional_router
+	conditional_router -> generate_chart_instructions [label=chart]
+	conditional_router -> state_printer [label=table]
+	generate_chart_instructions -> execute_chart_code
+	execute_chart_code -> state_printer
+	state_printer -> __end__
+}
